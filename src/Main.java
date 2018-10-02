@@ -1,14 +1,19 @@
 import Data.DataResolver;
 import Data.Inspector;
-import Data.Model.Data;
-
-import java.util.List;
 
 public class Main {
+	
     public static void main(String[] args) {
-        Inspector inspector = new Inspector();
         DataResolver dataResolver = new DataResolver();
-
+        dataResolver.downloadDataFromFile("C:\\Users\\bgolc\\Documents\\Docs\\PKK_cze_2017.csv");
+        Inspector inspector = new Inspector(dataResolver.getData());
+        
+        
+        //TODO w controlerze przekazac dane do Serwisu zapisującego danego na bazie lub zrobić to w klasie DataResolver, ale chyba bedzie to mniej czytelne
+        
+//        inspector.displayWeeksOfWork();
+        
+        
 //        dataResolver.readData();
 
 /*        inspector.checkData();
@@ -24,8 +29,7 @@ public class Main {
             }
         }*/
 
-        inspector.sortWeeks();
-        inspector.displayWeeksOfWork();
+
 //        inspector.displayAllData();
     }
 }

@@ -7,29 +7,30 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.util.List;
 
 /*Klasa pobierajaca dane z bazy lub pliku*/
 public class DataResolver {
 
     //TODO dodac zapisywanie danych do bazy w metodzie downloadDataFromFile
-    private ArrayList<Data> data;
+    private List<Data> data;
 
     public DataResolver() {
         data = new ArrayList<Data>();
     }
 
-    public ArrayList<Data> getData() {
+    /*
+     * Get method for downloaded data array list
+     * */
+    public List<Data> getData() {
         return data;
     }
 
-    /*Method downloads String from file and reorders it to Data class*/
+    /*
+     * Method downloads String from file and reorders it to Data class
+     * */
     private void downloadFromFile(String pattern) {
         String splitter = ";";
         String newLine = "";
@@ -63,8 +64,10 @@ public class DataResolver {
         }
     }
 
-    /*Uses data from downloadFromFile method and deletes unwanted characters*/
-    protected void downloadDataFromFile(String pattern) {
+    /*
+     * Uses data from downloadFromFile method and deletes unwanted characters
+     * */
+    public void downloadDataFromFile(String pattern) {
 //        pattern = "C:\\Users\\Bartek\\Documents\\Dokumenty\\PKK_cze_2017.csv";
 
         ArrayList<Data> newData = new ArrayList<Data>();
@@ -80,8 +83,10 @@ public class DataResolver {
         data = newData;
     }
 
-    /*Method to download data from database*/
-    protected ArrayList<Data> downloadDataFromDb() {
+    /*
+     * Method to download data from database
+     * */
+    public ArrayList<Data> downloadDataFromDb() {
         ArrayList<Data> newData = new ArrayList<Data>();
 
         //TODO Pobrac dane z bazy i przeformowac je do listy <Data>
@@ -89,29 +94,22 @@ public class DataResolver {
         return newData;
     }
 
-    private LocalDate transformStringToLocalDate(String date) {
-/*        Calendar calendar = GregorianCalendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MM yyyy", Locale.GERMANY);
-*/
+    /*
+     * Method transforming string to containing date
+     * to a LocalDate object
+     * */
+    public static LocalDate transformStringToLocalDate(String date) {
         String splitter = " ";
-        String newLine = "";
         String[] newDate = date.split(splitter);
 
-//        calendar.setFirstDayOfWeek(Calendar.MONDAY);*/
-
         LocalDate localDate = LocalDate.of(Integer.parseInt(newDate[3]), MonthConverter.convert(newDate[1]), Integer.parseInt(newDate[2]));
-
-/*        try {
-            calendar.setTime(simpleDateFormat.parse(newDate[2] + " " + MonthConverter.convert(newDate[1]) + " " + newDate[3]));
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }*/
-//        calendar.set(Integer.parseInt(newDate[3]), MonthConverter.convert(newDate[1]), Integer.parseInt(newDate[2]));
-
+        
         return localDate;
     }
 
-    /*Metoda do usuniecia*/
+    /*
+     * Metoda do usuniecia
+     * */
     public void readData() {
         downloadDataFromFile("C:\\Users\\Bartek\\Documents\\Dokumenty\\PKK_cze_2017.csv");
 /*        for (Data tempData : data) {

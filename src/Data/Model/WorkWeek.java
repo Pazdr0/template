@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeekOfWork {
+public class WorkWeek {
 
     private List<Data> dataList;
     private LocalDate weekStart;
@@ -15,8 +15,8 @@ public class WeekOfWork {
     private MisdemeanorsWeekly misdemeanorsWeekly;
     private int exceededWeeklyInsufficientBreakTimes;
     private int exceededWeeklyExtendedDriveTimes;
-
-    public WeekOfWork() {
+    
+	public WorkWeek() {
         dataList = new ArrayList<Data>();
         misdemeanorsWeekly = new MisdemeanorsWeekly();
     }
@@ -28,6 +28,14 @@ public class WeekOfWork {
     public void setMisdemeanorsWeekly(MisdemeanorsWeekly misdemeanorsWeekly) {
         this.misdemeanorsWeekly = misdemeanorsWeekly;
     }
+
+	public int getExceededWeeklyExtendedDriveTimes() {
+		return exceededWeeklyExtendedDriveTimes;
+	}
+
+	public void setExceededWeeklyExtendedDriveTimes(int exceededWeeklyExtendedDriveTimes) {
+		this.exceededWeeklyExtendedDriveTimes = exceededWeeklyExtendedDriveTimes;
+	}
 
     public int getExceededWeeklyInsufficientBreakTimes() {
         return exceededWeeklyInsufficientBreakTimes;

@@ -1,14 +1,19 @@
 package Data.Model;
 
+import Data.DataResolver;
 import Data.Model.Misdemeanors.MisdemeanorsDaily;
 
 import java.time.LocalDate;
 
-/*Klasa reprezentująca dane z tachografu*/
+/*
+ * Class representing data 
+ * from tachograph
+ * */
 public class Data {
-
-    private String date;
+	
+	//Date converted to LocalDate object
     private LocalDate localDate;
+    private String date;
     private String activity;
     private String from;
     private String to;
@@ -29,14 +34,14 @@ public class Data {
         misdemeanors = new MisdemeanorsDaily();
     }
 
-    private LocalDate transformStringToLocalDate(String date) {
+/*    private LocalDate transformStringToLocalDate(String date) {
         String splitter = " ";
         String newLine = "";
         String[] newDate = date.split(splitter);
         localDate = LocalDate.of(Integer.parseInt(newDate[3]), MonthConverter.convert(newDate[1]), Integer.parseInt(newDate[2]));
 
         return localDate;
-    }
+    }*/
 
     public MisdemeanorsDaily getMisdemeanors() {
         return misdemeanors;
@@ -47,7 +52,7 @@ public class Data {
     }
 
     public LocalDate getLocalDate() {
-        transformStringToLocalDate(date);
+    	DataResolver.transformStringToLocalDate(date);
         return localDate;
     }
 

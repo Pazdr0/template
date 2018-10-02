@@ -1,5 +1,9 @@
 package Data.Model;
 
+/*
+ * Converts 3 first letters of month
+ * in polish to a int variable
+ * */
 public class MonthConverter {
     private static final String JANUARY = "sty";
     private static final String FEBRUARY = "lut";

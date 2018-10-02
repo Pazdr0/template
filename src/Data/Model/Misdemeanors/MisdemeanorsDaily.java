@@ -1,8 +1,8 @@
 package Data.Model.Misdemeanors;
 
-
-import Data.Model.Data;
-
+/*
+ * Broken daily restrictions
+ * */
 public class MisdemeanorsDaily {
 
     private boolean exceededOneTimeDrive;

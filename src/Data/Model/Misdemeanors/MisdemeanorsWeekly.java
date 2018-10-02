@@ -1,5 +1,8 @@
 package Data.Model.Misdemeanors;
 
+/*
+ * Broken weekly restrictions
+ * */
 public class MisdemeanorsWeekly {
 
     private boolean exceededMaxWeeklyDriveTime;
