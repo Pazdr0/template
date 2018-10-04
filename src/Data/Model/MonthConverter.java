@@ -1,9 +1,11 @@
 package Data.Model;
 
-/*
- * Converts 3 first letters of month
- * in polish to a int variable
- * */
+//TODO Class probably to be deleted
+
+ /* 
+  * Converts 3 first letters of month
+  * in polish to a int variable
+  * */
 public class MonthConverter {
     private static final String JANUARY = "sty";
     private static final String FEBRUARY = "lut";
@@ -16,7 +18,7 @@ public class MonthConverter {
     private static final String SEPTEMBER = "wrz";
     private static final String OCTOBER = "paz";
     private static final String NOVEMBER = "lis";
-    private static final String DECEMBER= "gru";
+    private static final String DECEMBER = "gru";
 
     public static int convert(String month) {
         int monthNumber = 0;

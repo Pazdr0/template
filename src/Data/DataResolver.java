@@ -1,7 +1,7 @@
 package Data;
 
 import Data.Model.Data;
-import Data.Model.MonthConverter;
+import Data.Model.MonthConvert;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -11,23 +11,32 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Klasa pobierajaca dane z bazy lub pliku*/
-public class DataResolver {
+/*
+ * Class for downloading data either from file or database
+ * and sorting it
+ * */
+public enum DataResolver {
 
+	INSTANCE;
+	
     //TODO dodac zapisywanie danych do bazy w metodzie downloadDataFromFile
     private List<Data> data;
 
-    public DataResolver() {
+    private DataResolver() {
         data = new ArrayList<Data>();
+    }    
+    
+    public static DataResolver getInstance() {
+    	return DataResolver.INSTANCE;
     }
-
+    
     /*
      * Get method for downloaded data array list
      * */
     public List<Data> getData() {
         return data;
     }
-
+    
     /*
      * Method downloads String from file and reorders it to Data class
      * */
@@ -68,18 +77,15 @@ public class DataResolver {
      * Uses data from downloadFromFile method and deletes unwanted characters
      * */
     public void downloadDataFromFile(String pattern) {
-//        pattern = "C:\\Users\\Bartek\\Documents\\Dokumenty\\PKK_cze_2017.csv";
-
         ArrayList<Data> newData = new ArrayList<Data>();
         downloadFromFile(pattern);
 
         for (Data temp : data) {
             if (!temp.getDate().equals("data")) {
-                temp.setLocalDate(transformStringToLocalDate(temp.getDate()));
+                temp.setLocalDate(transformStringToLocalDateEnum(temp.getDate()));
                 newData.add(temp);
             }
         }
-        data = null;
         data = newData;
     }
 
@@ -95,30 +101,40 @@ public class DataResolver {
     }
 
     /*
-     * Method transforming string to containing date
+     * Method transforming String to LocalDate
      * to a LocalDate object
      * */
-    public static LocalDate transformStringToLocalDate(String date) {
+    private LocalDate transformStringToLocalDateEnum(String date) {
         String splitter = " ";
         String[] newDate = date.split(splitter);
 
-        LocalDate localDate = LocalDate.of(Integer.parseInt(newDate[3]), MonthConverter.convert(newDate[1]), Integer.parseInt(newDate[2]));
+        LocalDate localDate = LocalDate.of(Integer.parseInt(newDate[3]), MonthConvert.convert(newDate[1]), Integer.parseInt(newDate[2]));
         
         return localDate;
     }
 
-    /*
+    
+    /*    public static LocalDate transformStringToLocalDate(String date) {
+    String splitter = " ";
+    String[] newDate = date.split(splitter);
+
+    LocalDate localDate = LocalDate.of(Integer.parseInt(newDate[3]), MonthConverter.convert(newDate[1]), Integer.parseInt(newDate[2]));
+    
+    return localDate;
+}*/
+    
+/*    
      * Metoda do usuniecia
-     * */
+     * 
     public void readData() {
         downloadDataFromFile("C:\\Users\\Bartek\\Documents\\Dokumenty\\PKK_cze_2017.csv");
-/*        for (Data tempData : data) {
+        for (Data tempData : data) {
             System.out.println(tempData.getCalendarDate().get(Calendar.YEAR) + " " + (tempData.getCalendarDate().get(Calendar.MONTH) + 1) + " " +
                     tempData.getCalendarDate().get(Calendar.DAY_OF_MONTH) + ", Day of week: " + tempData.getCalendarDate().get(Calendar.DAY_OF_WEEK));
-        }*/
+        }
         for (Data tempData : data) {
             System.out.println(tempData.getLocalDate().getYear() + " " + tempData.getLocalDate().getMonth() + " " +
                     tempData.getLocalDate().getDayOfMonth() + ", Day of week: " + tempData.getLocalDate().getDayOfWeek());
         }
-    }
+    }*/
 }

@@ -34,14 +34,6 @@ public class Data {
         misdemeanors = new MisdemeanorsDaily();
     }
 
-/*    private LocalDate transformStringToLocalDate(String date) {
-        String splitter = " ";
-        String newLine = "";
-        String[] newDate = date.split(splitter);
-        localDate = LocalDate.of(Integer.parseInt(newDate[3]), MonthConverter.convert(newDate[1]), Integer.parseInt(newDate[2]));
-
-        return localDate;
-    }*/
 
     public MisdemeanorsDaily getMisdemeanors() {
         return misdemeanors;
@@ -52,7 +44,7 @@ public class Data {
     }
 
     public LocalDate getLocalDate() {
-    	DataResolver.transformStringToLocalDate(date);
+//    	DataResolver.transformStringToLocalDateEnum(date);
         return localDate;
     }
 
