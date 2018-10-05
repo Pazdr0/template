@@ -1,7 +1,6 @@
-package Data.Model;
+package data.model;
 
-import Data.DataResolver;
-import Data.Model.Misdemeanors.MisdemeanorsDaily;
+import data.model.misdemeanors.MisdemeanorsDaily;
 
 import java.time.LocalDate;
 
@@ -10,17 +9,19 @@ import java.time.LocalDate;
  * from tachograph
  * */
 public class Data {
-	
-	//Date converted to LocalDate object
+
+    /*String date converted to LocalDate object*/
     private LocalDate localDate;
     private String date;
     private String activity;
     private String from;
     private String to;
     private String timeSpent;
-
     private MisdemeanorsDaily misdemeanors;
 
+    /*
+     * Constructors
+     * */
     public Data() {
         misdemeanors = new MisdemeanorsDaily();
     }
@@ -34,62 +35,65 @@ public class Data {
         misdemeanors = new MisdemeanorsDaily();
     }
 
-
-    public MisdemeanorsDaily getMisdemeanors() {
-        return misdemeanors;
-    }
-
-    public void setMisdemeanors(MisdemeanorsDaily misdemeanors) {
-        this.misdemeanors = misdemeanors;
-    }
-
+    /*
+     * Getters
+     * */
     public LocalDate getLocalDate() {
-//    	DataResolver.transformStringToLocalDateEnum(date);
         return localDate;
-    }
-
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
     }
 
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getActivity() {
         return activity;
-    }
-
-    public void setActivity(String activity) {
-        this.activity = activity;
     }
 
     public String getFrom() {
         return from;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
     public String getTo() {
         return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
     }
 
     public String getTimeSpent() {
         return timeSpent;
     }
 
+    public MisdemeanorsDaily getMisdemeanors() {
+        return misdemeanors;
+    }
+
+    /*
+     * Setters
+     * */
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
     public void setTimeSpent(String timeSpent) {
         this.timeSpent = timeSpent;
     }
 
+    public void setMisdemeanors(MisdemeanorsDaily misdemeanors) {
+        this.misdemeanors = misdemeanors;
+    }
 }

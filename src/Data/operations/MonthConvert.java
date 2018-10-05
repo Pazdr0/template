@@ -1,4 +1,6 @@
-package Data.Model;
+package data.operations;
+
+import org.jetbrains.annotations.NotNull;
 
 public enum MonthConvert {
 
@@ -22,8 +24,8 @@ public enum MonthConvert {
     	this.monthName = month;
     	this.monthNumber = number;
     }
-    
-    public static int convert(String month) {
+
+    public static int convert(@NotNull String month) {
     	
     	if (month.equals(JANUARY.monthName)) {
     		return JANUARY.monthNumber;

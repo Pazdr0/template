@@ -1,4 +1,4 @@
-package Data.Model;
+package data.constants;
 
 /*
  * Restrictions for professional drivers 

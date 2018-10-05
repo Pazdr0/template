@@ -1,19 +1,20 @@
-import Data.DataResolver;
-import Data.Inspector;
+import data.impl.DataResolverImpl;
+import data.DataResolver;
+import data.Inspector;
 
 public class Main {
 	
     public static void main(String[] args) {
-        DataResolver dataResolver = DataResolver.getInstance();
-        dataResolver.downloadDataFromFile("C:\\Users\\bgolc\\Documents\\Docs\\PKK_cze_2017.csv");
+        DataResolver dataResolver = DataResolverImpl.getInstance();
+        dataResolver.downloadDataFromFile("C:\\Users\\Bartek\\Documents\\Dokumenty\\PKK_cze_2017.csv");
 //        Inspector inspector = new Inspector(dataResolver.getData());
         Inspector inspector = Inspector.getInstance();
         inspector.setData(dataResolver.getData());
         
         inspector.checkData();
-        inspector.displayWeeksOfWork();
+//        inspector.displayWeeksOfWork();
         
-        //TODO w controlerze przekazac dane do Serwisu zapisującego danego na bazie lub zrobić to w klasie DataResolver, ale chyba bedzie to mniej czytelne
+        //TODO w controlerze przekazac dane do Serwisu zapisującego danego na bazie lub zrobić to w klasie DataResolverImpl, ale chyba bedzie to mniej czytelne
         
 //        inspector.displayWeeksOfWork();
         

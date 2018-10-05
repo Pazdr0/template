@@ -1,6 +1,10 @@
-package Data;
+package data;
 
-import Data.Model.*;
+import data.constants.Activities;
+import data.constants.QuantityRestricions;
+import data.constants.TimeRestrictions;
+import data.model.*;
+import data.operations.DurationManager;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -8,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /*
  * Class validating drivers working time
@@ -30,13 +33,6 @@ public enum Inspector {
     private Inspector() {
         workWeeksList = new ArrayList<WorkWeek>();
     }
-    /*
-     * Constructor
-     * */
-/*    private Inspector(List<Data> data) {
-        this.dataInput = Collections.unmodifiableList(data);
-        this.workWeeksList = new ArrayList<WorkWeek>();
-    }*/
     
     /*
      * Method to get singleton
@@ -55,11 +51,36 @@ public enum Inspector {
      * */
     public void checkData() {
     	sortWeeks();
+    	checkWeek();
     }
 
 
-    private void checkWeek(WorkWeek workWeek) {
+    private void checkWeek() {
+        for (int i=0; i<workWeeksList.size(); i++/*WorkWeek week : workWeeksList*/) {
 
+            Duration weeklyDriveTimeDuration = Duration.ZERO;
+            Duration extendedOneTimeDuration = Duration.ZERO;
+
+            for (Data data : workWeeksList.get(i).getDataList()) {
+                if (data.getActivity().equals(Activities.DRIVE_TIME.getActivity()) || data.getActivity().equals(Activities.WORK.getActivity())) {
+                    weeklyDriveTimeDuration = DurationManager.addTime(weeklyDriveTimeDuration, data.getTimeSpent());
+                }
+                if (data.getActivity().equals(Activities.DRIVE_TIME.getActivity())) {
+                    if (data.getLocalDate())
+                }
+            if (DurationManager.compareDuration(weeklyDriveTimeDuration, TimeRestrictions.MAX_WEEKLY_DRIVE_TIME_ONE_WEEK)) {
+                workWeeksList.get(i).getMisdemeanorsWeekly().setExceededMaxWeeklyDriveTime(true);
+            }
+
+            if (workWeeksList.get(i).getExceededWeeklyInsufficientBreakTimes() > QuantityRestricions.MAX_DAILY_BREAK_SHORTENED.getRestriction()) {
+                workWeeksList.get(i).getMisdemeanorsWeekly().setExceededWeeklyInsufficientBreakTimes(true);
+            }
+
+            /*if () {
+                System.out.println("przekroczono");
+            }*/
+
+        }
     }
     
     
@@ -69,8 +90,7 @@ public enum Inspector {
     
     
     
-    
-    //TODO przemyśleć czy lepiej pracować na składowej workWeekList czy może zrobić metody niezależne
+
     /*
      * Dividing data into separate work weeks
      * */
@@ -90,7 +110,7 @@ public enum Inspector {
             dataOutput = new ArrayList<Data>();             
             int tempDataSize = tempData.size();
  
-            for (int j=0; j<tempDataSize; j++) {
+            for (int i=0; i<tempDataSize; i++) {
  
                 breakDuration = Duration.ZERO;
             	dataOutput.add(tempData.get(0));
@@ -133,7 +153,7 @@ public enum Inspector {
                     tempWorkWeek.setWeekStart(tempWorkWeek.getDataList().get(0).getLocalDate());
                     tempWorkWeek.setWeekEnd(tempWorkWeek.getDataList().get(tempWorkWeek.getDataList().size() - 1).getLocalDate());
                     break;
-                } else if(DurationManager.compareDuration(breakDuration, TimeRestrictions.WEEKLY_BREAK_SHORTENED)) {
+                } else if (DurationManager.compareDuration(breakDuration, TimeRestrictions.WEEKLY_BREAK_SHORTENED)) {
                     tempWorkWeek.setDataList(dataOutput);
                 	tempWorkWeek.setExceededWeeklyInsufficientBreakTimes(tempWorkWeek.getExceededWeeklyInsufficientBreakTimes() + 1);
                     tempWorkWeek.setWeekStart(tempWorkWeek.getDataList().get(0).getLocalDate());

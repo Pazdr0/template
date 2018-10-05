@@ -1,8 +1,9 @@
-package Data;
+package data.operations;
 
 import java.time.Duration;
 
-import Data.Model.TimeRestrictions;
+import data.constants.Activities;
+import data.constants.TimeRestrictions;
 
 /*
  * Final class managing duration variables
@@ -27,7 +28,7 @@ public final class DurationManager {
 
         return temp;
     }
-    
+
     /*
      * Method to compare duration with restriction
      * */

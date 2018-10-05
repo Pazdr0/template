@@ -1,4 +1,4 @@
-package Data.Model;
+package data.constants;
 
 /* 
  * All actions than can be taken by a driver,

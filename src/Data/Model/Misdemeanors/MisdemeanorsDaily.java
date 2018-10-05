@@ -1,4 +1,4 @@
-package Data.Model.Misdemeanors;
+package data.model.misdemeanors;
 
 /*
  * Broken daily restrictions
