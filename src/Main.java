@@ -12,6 +12,8 @@ public class Main {
         inspector.setData(dataResolver.getData());
         
         inspector.checkData();
+
+//        inspector.displayDayList();
 //        inspector.displayWeeksOfWork();
         
         //TODO w controlerze przekazac dane do Serwisu zapisującego danego na bazie lub zrobić to w klasie DataResolverImpl, ale chyba bedzie to mniej czytelne

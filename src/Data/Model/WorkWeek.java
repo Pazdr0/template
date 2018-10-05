@@ -18,23 +18,41 @@ public class WorkWeek {
     private int exceededWeeklyInsufficientBreakTimes;
 
     /*
-    * Constructor
-    * */
+     * Constructor
+     * */
 	public WorkWeek() {
         dataList = new ArrayList<Data>();
         dayList = new ArrayList<Day>();
         misdemeanorsWeekly = new MisdemeanorsWeekly();
     }
 
-    private void sortIntoDays() {
-	    for
+    public void sortIntoDays() {
+	    List<Data> temp = dataList;
+	    for (int i=0; i<temp.size(); i++) {
+
+	        Day day = new Day();
+	        day.setLocalDate(temp.get(i).getLocalDate());
+
+	        for (int j=0; j<temp.size(); j++) {
+	            if (day.getLocalDate().equals(temp.get(0).getLocalDate())) {
+                    day.addActivity(temp.get(0).getActivity());
+                    day.addTimeSpent(temp.get(0).getTimeSpent());
+                    temp.remove(0);
+                }
+            }
+            dayList.add(day);
+        }
     }
 
     /*
-    * Getters
-    * */
+     * Getters
+     * */
     public List<Data> getDataList() {
         return dataList;
+    }
+
+    public List<Day> getDayList() {
+        return dayList;
     }
 
     public LocalDate getWeekStart() {
@@ -58,10 +76,14 @@ public class WorkWeek {
     }
 
     /*
-    * Setters
-    * */
+     * Setters
+     * */
     public void setDataList(List<Data> dataList) {
         this.dataList = dataList;
+    }
+
+    public void setDayList(List<Day> dayList) {
+        this.dayList = dayList;
     }
 
     public void setWeekStart(LocalDate start) {

@@ -7,9 +7,9 @@ public class MisdemeanorsWeekly {
 
     private boolean exceededMaxWeeklyDriveTime;                 //checked
     private boolean exceededMaxWeeklyDriveTimeTwoWeeks;         //condition to be implemented in future
-    private boolean exceededWeeklyExtendedDriveTimes;           //
-    private boolean insufficientWeaklyBreak;                    //is not needed, because new week wont start if weekly break is insufficient
-    private boolean exceededWeeklyInsufficientBreakTimes;       //checked
+    private boolean insufficientWeaklyBreak;                    //condition to be implemented in future
+    private boolean exceededWeeklyExtendedDriveTimes;           //checked
+    private boolean exceededWeeklyInsufficientDayBreakTimes;    //
 
     /*
     * Checkers
@@ -31,7 +31,7 @@ public class MisdemeanorsWeekly {
     }
 
     public boolean isExceededWeeklyInsufficientBreakTimes() {
-        return exceededWeeklyInsufficientBreakTimes;
+        return exceededWeeklyInsufficientDayBreakTimes;
     }
 
     /*
@@ -53,7 +53,7 @@ public class MisdemeanorsWeekly {
         this.insufficientWeaklyBreak = insufficientWeaklyBreak;
     }
 
-    public void setExceededWeeklyInsufficientBreakTimes(boolean exceededWeeklyInsufficientBreakTimes) {
-        this.exceededWeeklyInsufficientBreakTimes = exceededWeeklyInsufficientBreakTimes;
+    public void setExceededWeeklyInsufficientBreakTimes(boolean exceededWeeklyInsufficientDayBreakTimes) {
+        this.exceededWeeklyInsufficientDayBreakTimes = exceededWeeklyInsufficientDayBreakTimes;
     }
 }

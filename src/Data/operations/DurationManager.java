@@ -22,11 +22,14 @@ public final class DurationManager {
      * */
     public static Duration addTime(Duration timeSum, String timeToAdd) {
         //TODO sprawdzic czy zmienna temp jest w ogóle potrzebna
-    	Duration temp = Duration.ZERO;
+//    	Duration temp = Duration.ZERO;
         String[] timeComponents = timeToAdd.split(":");
-        temp = timeSum.plus(Duration.ofHours(Integer.parseInt(timeComponents[0])).plusMinutes(Integer.parseInt(timeComponents[1])));
+//        temp = timeSum.plus(Duration.ofHours(Integer.parseInt(timeComponents[0])).plusMinutes(Integer.parseInt(timeComponents[1])));
+//        System.out.println(temp.toMinutes());
+        timeSum = timeSum.plus(Duration.ofHours(Integer.parseInt(timeComponents[0])).plusMinutes(Integer.parseInt(timeComponents[1])));
+//        System.out.println(timeSum.toMinutes());
 
-        return temp;
+        return timeSum;
     }
 
     /*
