@@ -6,8 +6,9 @@ import java.util.List;
 
 public class Day {
 
-    private LocalDate localDate;
+//    private LocalDate localDate;
 //    private List<Data> dataList;
+    private int index;
     private List<String> activityList;
     private List<String> timeSpentList;
 
@@ -34,8 +35,13 @@ public class Day {
     /*
      * Getters
      * */
-    public LocalDate getLocalDate() {
+
+/*     public LocalDate getLocalDate() {
         return localDate;
+    }*/
+
+    public int getIndex() {
+        return index;
     }
 
     public List<String> getActivityList() {
@@ -51,15 +57,20 @@ public class Day {
     /*
      * Setters
      * */
-    public void setLocalDate(LocalDate localDate) {
+
+/*    public void setLocalDate(LocalDate localDate) {
         this.localDate = localDate;
+    }*/
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
-/*    public void setActivity(List<String> activity) {
+    public void setActivityList(List<String> activity) {
         this.activityList = activity;
     }
 
-    public void setTimeSpent(List<String> timeSpent) {
+    public void setTimeSpentList(List<String> timeSpent) {
         this.timeSpentList = timeSpent;
-    }*/
+    }
 }

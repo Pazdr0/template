@@ -32,6 +32,15 @@ public final class DurationManager {
         return timeSum;
     }
 
+    public static Duration transformToDuration(String timeToTransform) {
+        String[] timeComponents = timeToTransform.split(":");
+        Duration duration = Duration.ZERO;
+
+        duration = duration.plus(Duration.ofHours(Integer.parseInt(timeComponents[0]))).plusMinutes(Integer.parseInt(timeComponents[1]));
+
+        return duration;
+    }
+
     /*
      * Method to compare duration with restriction
      * */

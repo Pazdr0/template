@@ -6,7 +6,6 @@ import data.constants.TimeRestrictions;
 import data.model.*;
 import data.operations.DurationManager;
 
-import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -85,21 +84,39 @@ public enum Inspector {
 
             for (Day day : workWeeksList.get(i).getDayList()) {
 
-                Duration extendedOneDayDuration = Duration.ZERO;
+                /* Work time */
+                Duration extendedDailyDriveTimeDuration = Duration.ZERO;
+                /* Break */
+                Duration dailyBreakDurationDuration = Duration.ZERO;
 
                 /* Adds drive time for one day*/
                 for (int j=0; j<day.getActivityList().size(); j++) {
                     if (day.getActivityList().get(j).equals(Activities.DRIVE_TIME.getActivity()) || day.getActivityList().get(j).equals(Activities.WORK.getActivity())) {
-                        extendedOneDayDuration = DurationManager.addTime(extendedOneDayDuration, day.getTimeSpentList().get(j));
+                        extendedDailyDriveTimeDuration = DurationManager.addTime(extendedDailyDriveTimeDuration, day.getTimeSpentList().get(j));
                     }
 
                     //TODO zaimplementowac tutaj jeszcze sprawdanie ilosci skroconych przerw w tygodniu
+/*                    if (day.getActivityList().get(j).equals(Activities.BREAK.getActivity())) {
+                        if (DurationManager.compareDuration(DurationManager.transformToDuration(day.getTimeSpentList().get(j)), TimeRestrictions.DAILY_BREAK)) {
+                            dailyBreakDurationDuration = DurationManager.addTime(dailyBreakDurationDuration, day.getTimeSpentList().get(j));
+                        } else if ((DurationManager.compareDuration(DurationManager.transformToDuration(day.getTimeSpentList().get(j)), TimeRestrictions.DAILY_BREAK_DIVIDED_3)
+                                && !DurationManager.compareDuration(DurationManager.transformToDuration(day.getTimeSpentList().get(j)), TimeRestrictions.DAILY_BREAK_DIVIDED_9))
+                                || (DurationManager.compareDuration(DurationManager.transformToDuration(day.getTimeSpentList().get(j)), TimeRestrictions.DAILY_BREAK_DIVIDED_9)
+                                && !DurationManager.compareDuration(DurationManager.transformToDuration(day.getTimeSpentList().get(j)), TimeRestrictions.DAILY_BREAK))) {
+                            dailyBreakDurationDuration = DurationManager.addTime(dailyBreakDurationDuration, day.getTimeSpentList().get(j));
+                        }
+                    }*/
                 }
-                /* If duration for one day is greater than 9h and smaller than 10h exceededWeeklyExtendedDriveTime is incremented */
-                if (DurationManager.compareDuration(extendedOneDayDuration, TimeRestrictions.MAX_DAILY_DRIVE_TIME)
-                        && DurationManager.compareDuration(extendedOneDayDuration, TimeRestrictions.EXTENDED_MAX_DAILY_DRIVE_TIME)) {
+                /* If working time duration for one day is greater than 9h and smaller than 10h exceededWeeklyExtendedDriveTime is incremented */
+                if (DurationManager.compareDuration(extendedDailyDriveTimeDuration, TimeRestrictions.MAX_DAILY_DRIVE_TIME)
+                        && !DurationManager.compareDuration(extendedDailyDriveTimeDuration, TimeRestrictions.MAX_DAILY_DRIVE_TIME_EXTENDED)) {
                     workWeeksList.get(i).setExceededWeeklyExtendedDriveTimes(workWeeksList.get(i).getExceededWeeklyExtendedDriveTimes() + 1);
                 }
+
+/*                if (DurationManager.compareDuration(dailyBreakDurationDuration, TimeRestrictions.DAILY_BREAK_SHORTENED)
+                        && !DurationManager.compareDuration(dailyBreakDurationDuration, TimeRestrictions.DAILY_BREAK)) {
+                    System.out.println(dailyBreakDurationDuration);
+                }*/
             }
 
             /* If number of weekly number of exceededDriveTimes is greater than restriction Misdemeanor is added */
@@ -125,14 +142,18 @@ public enum Inspector {
      * Dividing data into separate work weeks
      * */
     private void sortWeeks() {
-        Duration breakDuration = Duration.ZERO;             //Duration of weekly break time
+        Duration breakDuration;                             //Duration of weekly break time
         WorkWeek tempWorkWeek;      						//Temp WeekOfWork to be added into weekOfWorkList
         List<Data> dataOutput;								//Data to be put in tempWeekOfWork
         List<Data> tempData = new ArrayList<Data>();        //Temp data list to work with input data
 
-        for (Data temp : dataInput) {						//Filling tempData with inputData
+/*        for (Data temp : dataInput) {						//Filling tempData with inputData
             tempData.add(temp);
-        }
+        }*/
+        //TODO pozniej zmienic ta petle u gory na ktoras z ponizszych opcji
+//        tempData = dataInput;
+        // Replaced above loop
+        tempData.addAll(dataInput);
 
         while (!tempData.isEmpty()){						//To sort data into weeks, until tempData isn's empty method removes elements from tempData and ads them to dataOutput
         	
@@ -197,9 +218,9 @@ public enum Inspector {
                 }
 
             }
+            /* Sorting data into days, could be done in WorkWeek class, I guess... */
             tempWorkWeek.sortIntoDays();
             workWeeksList.add(tempWorkWeek);
-
         }
     }
 
@@ -212,9 +233,9 @@ public enum Inspector {
         WorkWeek week = workWeeksList.get(0);
 
         for (int i=0; i<week.getDayList().size(); i++) {
-            System.out.println(week.getDayList().get(i).getLocalDate());
+            System.out.println("_____________Dzien tygodnia_____________" + week.getDayList().get(i).getIndex());
             for (int j=0; j<week.getDayList().get(i).getActivityList().size(); j++) {
-                System.out.print(week.getDayList().get(i).getActivityList().get(j));
+                System.out.print(j + " " + week.getDayList().get(i).getActivityList().get(j));
                 System.out.print("\t");
                 System.out.println(week.getDayList().get(i).getTimeSpentList().get(j));
             }
@@ -222,7 +243,7 @@ public enum Inspector {
     }
 
     /* 
-     * TODO delete when it'll become useless
+     * TODO delete if it becomes useless
      * */
     public void displayWeeksOfWork() {
 //        int i = 1;
